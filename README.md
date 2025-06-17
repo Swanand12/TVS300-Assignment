@@ -11,7 +11,7 @@ A single-page React application that allows users to input a domain name and vie
 | [React](https://reactjs.org/)         | JavaScript library for building UIs             |
 | [Vite](https://vitejs.dev/)           | Fast frontend tooling for development           |
 | [Tailwind CSS](https://tailwindcss.com/) | Utility-first CSS framework                    |
-| [Axios](https://axios-http.com/)      | Promise-based HTTP client                       |
+| [Node.js](https://nodejs.org/)       | A JavaScript runtime built on Chrome's V8 JavaScript engine                            |
 | [WHOIS API](https://whois.whoisxmlapi.com/) | Domain info provider (via backend integration) |
 
 ---
