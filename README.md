@@ -39,6 +39,8 @@ To run this project locally, follow these steps:
    ```bash
    cd frontend
 
+6. Create .env file inside the frontend directory and include the environment variables provided in .txt file include backend url
+
 6. Install frontend dependencies and Run the App:
    ```bash
    npm install
