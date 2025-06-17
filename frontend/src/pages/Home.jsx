@@ -8,6 +8,7 @@ const Home = () => {
   const [data, setData] = useState(null); // holds response data
   const [error, setError] = useState(""); // stores error message
   const [loading, setLoading] = useState(false); // loading variable
+  const backend_url = import.meta.env.VITE_BACKEND_URL; // backend url
 
   // Function for fetching data from server
   const handleLookUp = async () => {
@@ -24,7 +25,7 @@ const Home = () => {
     }
 
     try {
-      const res = await axios.get(`http://localhost:5000/api/v1/dns/get`, {
+      const res = await axios.get(`${backend_url}/api/v1/dns/get`, {
         params: {
           domainName,
           infoType,
