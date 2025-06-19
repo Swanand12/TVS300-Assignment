@@ -1,7 +1,7 @@
 export const getDNSInfoController = async (req, res) => {
   try {
     const { domainName, infoType } = req.query;
-
+    console.log(infoType);
     // required params for fetching data from whoisapi
     const params = {
       apiKey: process.env.API_KEY,
@@ -26,35 +26,42 @@ export const getDNSInfoController = async (req, res) => {
     // parse data
     let data = await response.json();
 
+    let dnsData = null;
+
     // Format the API response based on selected info type (domain or contact)
     if (infoType == "domain") {
-      data = {
-        Domain_Name: data.WhoisRecord.domainName,
-        Registrar: data.WhoisRecord.registryData.registrarName,
-        Registration_Date: data.WhoisRecord.registryData.createdDate.slice(
+      dnsData = {
+        Domain_Name: data?.WhoisRecord?.domainName,
+        Registrar: data?.WhoisRecord?.registryData?.registrarName,
+        Registration_Date: data?.WhoisRecord?.registryData?.createdDate.slice(
           0,
           10
         ),
-        Expiration_Date: data.WhoisRecord.registryData.expiresDate.slice(0, 10),
-        Estimated_Domain_Age: data.WhoisRecord.estimatedDomainAge,
-        Hostnames: `${data.WhoisRecord.registryData.nameServers.hostNames
+        Expiration_Date: data?.WhoisRecord?.registryData?.expiresDate.slice(
+          0,
+          10
+        ),
+        Estimated_Domain_Age: data?.WhoisRecord?.estimatedDomainAge,
+        Hostnames: `${data?.WhoisRecord?.registryData?.nameServers?.hostNames
           .join(", ")
           .substring(0, 25)}...`,
       };
-    } else {
-      data = {
-        Registrant_Name: data.WhoisRecord.registrant.organization,
-        Technical_Contact_Name: data.WhoisRecord.technicalContact.organization,
+    }
+    if (infoType == "contact") {
+      dnsData = {
+        Registrant_Name: data?.WhoisRecord?.registrant?.organization,
+        Technical_Contact_Name:
+          data?.WhoisRecord?.technicalContact?.organization,
         Administrative_Contact_Name:
-          data.WhoisRecord.administrativeContact.organization,
-        Contact_Email: data.WhoisRecord.contactEmail,
+          data?.WhoisRecord?.administrativeContact?.organization,
+        Contact_Email: data?.WhoisRecord?.contactEmail,
       };
     }
 
     res.status(200).json({
       success: true,
       message: "Successfully fetched data",
-      dnsData: data,
+      dnsData: dnsData,
     });
   } catch (error) {
     res.status(500).json({

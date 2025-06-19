@@ -13,6 +13,7 @@ const Home = () => {
   // Function for fetching data from server
   const handleLookUp = async () => {
     setLoading(true);
+    setError("");
 
     if (!domainName) {
       setError("Please enter a domainName");
